@@ -1,0 +1,267 @@
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+html,body{
+  min-height:100%;
+  background:linear-gradient(160deg,#fff0f6 0%,#ffe4ee 35%,#ffd6e6 65%,#ffc7dd 100%);
+  font-family:'Georgia','Times New Roman',serif;
+  overflow-x:hidden;
+  color:#7a2348;
+}
+
+/* ============ СЛОИ ФОНА ============ */
+.soft-bg,.petal-layer,.star-layer,.ray-layer,.fx-layer,.wave-layer{
+  position:fixed;inset:0;pointer-events:none;overflow:hidden;
+}
+.soft-bg{z-index:0}
+.star-layer{z-index:1}
+.petal-layer{z-index:2}
+.ray-layer{z-index:3}
+.wave-layer{z-index:4}
+.fx-layer{z-index:999}
+
+/* ============ МЯГКИЕ ФИГУРЫ ============ */
+.soft-shape{
+  position:absolute;
+  opacity:0.12;
+  color:#ff4d8d;
+  font-size:120px;
+  animation:softFloat 12s ease-in-out infinite;
+  filter:blur(1px);
+}
+@keyframes softFloat{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-30px) rotate(8deg)}
+}
+
+/* ============ ЗВЁЗДЫ ============ */
+.star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 6px #fff,0 0 12px #ffb3d1;
+  animation:twinkle ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:0.15;transform:scale(0.6)}
+  50%{opacity:0.9;transform:scale(1.3)}
+}
+
+/* ============ ЛЕПЕСТКИ ============ */
+.petal{
+  position:absolute;
+  font-size:20px;
+  opacity:0.45;
+  animation:fallPetal linear infinite;
+  filter:drop-shadow(0 0 4px rgba(255,150,190,0.6));
+}
+@keyframes fallPetal{
+  0%{transform:translateY(-10vh) translateX(0) rotate(0);opacity:0}
+  10%{opacity:0.5}
+  100%{transform:translateY(110vh) translateX(80px) rotate(360deg);opacity:0}
+}
+
+/* ============ ЛУЧИ ============ */
+.ray{
+  position:absolute;
+  width:2px;
+  background:linear-gradient(to bottom,rgba(255,150,190,0),rgba(255,150,190,0.5),rgba(255,150,190,0));
+  animation:rayMove linear infinite;
+  opacity:0.35;
+}
+@keyframes rayMove{
+  0%{transform:translateY(-100%) scaleY(0.5);opacity:0}
+  50%{opacity:0.5}
+  100%{transform:translateY(100vh) scaleY(1.5);opacity:0}
+}
+
+/* ============ ВОЛНЫ ============ */
+.wave{
+  position:absolute;
+  bottom:0;
+  width:200%;
+  height:120px;
+  background:radial-gradient(ellipse at center,rgba(255,150,190,0.12) 0%,transparent 70%);
+  animation:waveMove linear infinite;
+}
+@keyframes waveMove{
+  0%{transform:translateX(-50%) scaleY(1)}
+  50%{transform:translateX(0%) scaleY(1.4)}
+  100%{transform:translateX(-50%) scaleY(1)}
+}
+
+/* ============ ВЕРХНИЕ КНОПКИ ============ */
+.top-bar{position:fixed;top:0;left:0;width:100%;height:90px;z-index:50;pointer-events:none}
+.btn-top{
+  position:absolute;pointer-events:auto;
+  padding:14px 26px;font-size:16px;font-weight:bold;
+  color:#fff;font-family:'Georgia',serif;
+  background:linear-gradient(135deg,#ff85b3,#ff4d8d);
+  border:2px solid #ffe4ee;border-radius:32px;
+  box-shadow:0 6px 22px rgba(255,77,141,0.4);
+  cursor:pointer;white-space:nowrap;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-top:active{transform:scale(.94);box-shadow:0 4px 14px rgba(255,77,141,0.5)}
+.btn-top.left{left:4%;top:20px}
+.btn-top.right{right:4%;top:20px}
+
+/* ============ СТРАНИЦЫ ============ */
+.page{
+  position:relative;min-height:100vh;display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:130px 22px 90px;z-index:5;
+}
+.page.active{display:flex;animation:pageIn .9s ease-out}
+@keyframes pageIn{
+  0%{opacity:0;transform:translateY(30px) scale(.97)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ============ КАРТОЧКА ============ */
+.card{
+  position:relative;width:92%;max-width:450px;
+  background:linear-gradient(180deg,#ffffff 0%,#fff5f9 60%,#ffe9f2 100%);
+  border-radius:36px;
+  padding:40px 28px 44px;
+  text-align:center;
+  box-shadow:
+    0 20px 60px rgba(255,120,170,0.28),
+    0 0 0 1px rgba(255,255,255,0.9) inset,
+    0 0 60px rgba(255,180,210,0.35);
+  overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:-60%;left:-60%;width:220%;height:220%;
+  background:conic-gradient(from 0deg,transparent,rgba(255,150,190,0.18),transparent 40%);
+  animation:shine 10s linear infinite;pointer-events:none;
+}
+@keyframes shine{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+/* ============ ФОТО ============ */
+.avatar{
+  width:145px;height:145px;border-radius:50%;
+  border:4px solid #ffb3d1;
+  box-shadow:0 0 0 6px #fff,0 10px 30px rgba(255,77,141,0.35);
+  object-fit:cover;margin-bottom:20px;
+  animation:avatarGlow 3s ease-in-out infinite;
+  position:relative;z-index:1;
+}
+@keyframes avatarGlow{
+  0%,100%{box-shadow:0 0 0 6px #fff,0 10px 30px rgba(255,77,141,0.35)}
+  50%{box-shadow:0 0 0 6px #fff,0 10px 40px rgba(255,77,141,0.6)}
+}
+
+/* ============ ТЕКСТ ============ */
+.title{
+  font-size:33px;color:#c61a5b;font-weight:bold;
+  letter-spacing:0.5px;
+  text-shadow:0 2px 12px rgba(255,120,170,0.35);
+  margin-bottom:8px;position:relative;z-index:1;
+}
+.subtitle{
+  font-style:italic;color:#a83366;font-size:15px;
+  margin-bottom:22px;position:relative;z-index:1;opacity:0.85;
+}
+.heart-big{
+  font-size:50px;margin:10px 0;
+  animation:beat 1.4s infinite;position:relative;z-index:1;
+  filter:drop-shadow(0 4px 10px rgba(255,77,141,0.4));
+}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.text{
+  color:#7a2348;font-size:17px;line-height:1.8;
+  margin:16px 0;position:relative;z-index:1;
+}
+.roses{font-size:24px;margin:14px 0;letter-spacing:6px;position:relative;z-index:1}
+.signature{
+  font-style:italic;color:#a83366;font-size:15px;
+  margin-bottom:26px;position:relative;z-index:1;opacity:0.85;
+}
+
+/* ============ КНОПКИ КАРТОЧКИ ============ */
+.btn-next{
+  padding:15px 44px;font-size:17px;color:#fff;
+  font-family:'Georgia',serif;
+  background:linear-gradient(135deg,#ff85b3,#e23a76);
+  border:none;border-radius:32px;
+  box-shadow:0 8px 24px rgba(255,77,141,0.45);
+  cursor:pointer;transition:transform .15s,box-shadow .2s;
+  position:relative;z-index:2;
+}
+.btn-next:active{transform:scale(.94);box-shadow:0 4px 14px rgba(255,77,141,0.5)}
+.btn-next.prev{
+  background:linear-gradient(135deg,#d68aa9,#a83366);
+  box-shadow:0 8px 20px rgba(168,51,102,0.35);
+}
+.btn-row{display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap;position:relative;z-index:2}
+
+/* ============ ФИНАЛ ============ */
+.final-title{
+  font-size:36px;color:#e23a76;
+  text-shadow:0 4px 22px rgba(255,120,170,0.6);
+  margin-bottom:18px;text-align:center;
+  animation:beat 1.8s infinite;
+}
+.final-text{
+  font-size:19px;color:#7a2348;text-align:center;
+  line-height:1.9;max-width:450px;
+}
+
+/* ============ ЭФФЕКТЫ ============ */
+.fx-heart{position:absolute;font-size:30px;animation:flyHeart 2.4s ease-out forwards}
+@keyframes flyHeart{
+  0%{transform:translate(0,0) scale(.6);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(1.6);opacity:0}
+}
+.fx-text{
+  position:absolute;font-size:18px;font-weight:bold;color:#e23a76;
+  font-family:'Georgia',serif;
+  text-shadow:0 0 10px #fff,0 0 18px rgba(255,120,170,0.8);
+  animation:flyText 2.6s ease-out forwards;white-space:nowrap;
+}
+@keyframes flyText{
+  0%{transform:translate(0,0) scale(.8);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(1.4);opacity:0}
+}
+.firework{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  animation:firework 1.6s ease-out forwards;
+}
+@keyframes firework{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}
+}
+.shooting-star{
+  position:absolute;width:100px;height:2px;
+  background:linear-gradient(90deg,transparent,#fff,#ffb3d1,transparent);
+  animation:shoot linear forwards;
+  filter:drop-shadow(0 0 6px #fff);
+}
+@keyframes shoot{
+  0%{transform:translate(0,0) rotate(-25deg);opacity:0}
+  10%{opacity:1}
+  100%{transform:translate(600px,400px) rotate(-25deg);opacity:0}
+}
+
+/* ============ ТОЧКИ ============ */
+.dots{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;gap:10px;z-index:60;
+}
+.dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,0.7);
+  border:1px solid #ff85b3;
+  transition:all .3s;cursor:pointer;
+}
+.dot.active{
+  background:#e23a76;box-shadow:0 0 14px #ff85b3;
+  transform:scale(1.35);
+}
+
+/* ============ ФУТЕР ============ */
+.footer{
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  font-size:12px;color:#a83366;opacity:0.7;z-index:60;
+  font-style:italic;
+  }
